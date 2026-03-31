@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "IPC2_Proyecto2_202401939/1.0.0": {
+        "runtime": {
+          "IPC2_Proyecto2_202401939.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "IPC2_Proyecto2_202401939/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

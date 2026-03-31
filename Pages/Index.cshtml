@@ -1,0 +1,17 @@
+@page
+@model IPC2_Proyecto2_202401939.Pages.IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<h1>IPC2 Proyecto 2 - Release 1</h1>
+<p>Este modulo inicializa el sistema y gestiona drones.</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.Mensaje))
+{
+    <div class="mensaje ok">@Model.Mensaje</div>
+}
+
+<form method="post">
+    <button type="submit">Inicializar sistema</button>
+</form>

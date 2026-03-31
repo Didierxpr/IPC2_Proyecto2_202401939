@@ -1,0 +1,18 @@
+@page
+@model IPC2_Proyecto2_202401939.Pages.Drones.CreateModel
+@{
+    ViewData["Title"] = "Agregar dron";
+}
+
+<h2>Agregar dron</h2>
+
+@if (!string.IsNullOrWhiteSpace(Model.Mensaje))
+{
+    <div class="mensaje @(Model.EsExito ? "ok" : "error")">@Model.Mensaje</div>
+}
+
+<form method="post">
+    <label for="nombreDron">Nombre del dron</label><br />
+    <input id="nombreDron" type="text" name="nombreDron" value="@Model.NombreDron" /><br /><br />
+    <button type="submit">Guardar</button>
+</form>
