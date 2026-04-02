@@ -27,3 +27,4 @@ C:\Users\Didiere\Desktop\IPC2S1_Proyecto2_202401939\IPC2_Proyecto2_202401939\obj
 C:\Users\Didiere\Desktop\IPC2S1_Proyecto2_202401939\IPC2_Proyecto2_202401939\obj\Debug\net8.0\IPC2_Proyecto2_202401939.pdb
 C:\Users\Didiere\Desktop\IPC2S1_Proyecto2_202401939\IPC2_Proyecto2_202401939\obj\Debug\net8.0\IPC2_Proyecto2_202401939.genruntimeconfig.cache
 C:\Users\Didiere\Desktop\IPC2S1_Proyecto2_202401939\IPC2_Proyecto2_202401939\obj\Debug\net8.0\ref\IPC2_Proyecto2_202401939.dll
+C:\Users\Didiere\Desktop\IPC2S1_Proyecto2_202401939\IPC2_Proyecto2_202401939\obj\Debug\net8.0\IPC2_Proyecto2_202401939.sourcelink.json

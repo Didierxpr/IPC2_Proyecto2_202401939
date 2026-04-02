@@ -1,0 +1,42 @@
+@page
+@model IPC2_Proyecto2_202401939.Pages.Mensajes.IndexModel
+@{
+    ViewData["Title"] = "Mensajes";
+}
+
+<h2>Mensajes cargados</h2>
+
+@if (Model.Mensajes.Length == 0)
+{
+    <p>No hay mensajes cargados.</p>
+}
+else
+{
+    @for (int i = 0; i < Model.Mensajes.Length; i++)
+    {
+        <section class="bloque">
+            <h3>@Model.Mensajes[i].Nombre</h3>
+            <p>Sistema: @Model.Mensajes[i].SistemaDrones</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dron</th>
+                        <th>Altura</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @{
+                    var instrucciones = Model.Mensajes[i].Instrucciones.ConvertirAArreglo();
+                }
+                @for (int j = 0; j < instrucciones.Length; j++)
+                {
+                    <tr>
+                        <td>@instrucciones[j].NombreDron</td>
+                        <td>@instrucciones[j].Altura</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </section>
+    }
+}

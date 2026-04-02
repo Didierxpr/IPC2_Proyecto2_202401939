@@ -1,0 +1,44 @@
+@page
+@model IPC2_Proyecto2_202401939.Pages.Sistemas.IndexModel
+@{
+    ViewData["Title"] = "Sistemas de drones";
+}
+
+<h2>Sistemas de drones</h2>
+
+@if (Model.Sistemas.Length == 0)
+{
+    <p>No hay sistemas cargados.</p>
+}
+else
+{
+    @for (int i = 0; i < Model.Sistemas.Length; i++)
+    {
+        <section class="bloque">
+            <h3>@Model.Sistemas[i].Nombre</h3>
+            <p>Altura maxima: @Model.Sistemas[i].AlturaMaxima | Cantidad de drones: @Model.Sistemas[i].CantidadDrones</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dron</th>
+                        <th>Altura</th>
+                        <th>Simbolo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @{
+                    var mapas = Model.Sistemas[i].Mapas.ConvertirAArreglo();
+                }
+                @for (int j = 0; j < mapas.Length; j++)
+                {
+                    <tr>
+                        <td>@mapas[j].NombreDron</td>
+                        <td>@mapas[j].Altura</td>
+                        <td>@mapas[j].Simbolo</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </section>
+    }
+}

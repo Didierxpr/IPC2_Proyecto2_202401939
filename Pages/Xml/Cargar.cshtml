@@ -1,0 +1,23 @@
+@page
+@model IPC2_Proyecto2_202401939.Pages.Xml.CargarModel
+@{
+    ViewData["Title"] = "Cargar XML";
+}
+
+<h2>Cargar XML de entrada</h2>
+<p>La carga es incremental. Puedes subir multiples archivos.</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.Resumen))
+{
+    <div class="mensaje @(Model.EsExito ? "ok" : "error")">@Model.Resumen</div>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Errores))
+{
+    <pre class="errores">@Model.Errores</pre>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="archivoXml" accept=".xml" />
+    <button type="submit">Cargar</button>
+</form>
