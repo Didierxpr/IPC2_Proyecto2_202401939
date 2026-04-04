@@ -8,6 +8,8 @@ builder.Services.AddRazorPages();
 // Registra el estado global en memoria para la aplicacion.
 builder.Services.AddSingleton<AppStateService>();
 builder.Services.AddScoped<XmlInputService>();
+builder.Services.AddScoped<OptimizadorMensaje>();
+builder.Services.AddScoped<XmlOutputService>();
 
 var app = builder.Build();
 

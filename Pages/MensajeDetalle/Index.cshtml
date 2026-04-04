@@ -1,0 +1,160 @@
+@page
+@model IPC2_Proyecto2_202401939.Pages.MensajeDetalle.IndexModel
+@{
+    ViewData["Title"] = "Detalle de Instrucciones";
+}
+
+<h1>Detalle de Instrucciones del Mensaje</h1>
+
+@if (Model.MensajeActual == null)
+{
+    <div class="mensaje error">
+        <p>No se encontró información del mensaje. Por favor, selecciona un mensaje desde la página de Mensajes.</p>
+    </div>
+}
+else
+{
+    <div class="detalle-contenedor">
+        <div class="info-basica">
+            <h2>@Model.MensajeActual.Nombre</h2>
+            
+            <p>
+                <strong>Sistema de Drones:</strong> @Model.MensajeActual.NombreSistemaDrones
+            </p>
+            
+            <p>
+                <strong>Tiempo Óptimo:</strong> <span class="tiempo-optimo">@Model.MensajeActual.TiempoOptimo segundos</span>
+            </p>
+            
+            <p>
+                <strong>Mensaje Decodificado:</strong> <span class="mensaje-decodificado">@Model.MensajeActual.MensajeRecibido</span>
+            </p>
+        </div>
+
+        <div class="instrucciones-contenedor">
+            <h3>Instrucciones por Tiempo</h3>
+            
+            @if (Model.InstruccionesPorTiempo.Length == 0)
+            {
+                <p>No hay instrucciones para este mensaje.</p>
+            }
+            else
+            {
+                <table class="tabla-instrucciones">
+                    <thead>
+                        <tr>
+                            <th>Tiempo (seg)</th>
+                            @foreach (var nombreDron in Model.ObtenerNombresDrones())
+                            {
+                                <th>@nombreDron</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var instruccion in Model.InstruccionesPorTiempo)
+                        {
+                            <tr>
+                                <td><strong>@instruccion.Tiempo</strong></td>
+                                @foreach (var nombreDron in Model.ObtenerNombresDrones())
+                                {
+                                    <td>@Model.ObtenerAccion(instruccion, nombreDron)</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+
+        <div class="acciones">
+            <a href="/Mensajes" class="boton">Volver a Mensajes</a>
+        </div>
+    </div>
+}
+
+<style>
+    .detalle-contenedor {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .info-basica {
+        background-color: white;
+        padding: 15px;
+        border-left: 4px solid #007bff;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+
+    .tiempo-optimo {
+        color: #28a745;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+
+    .mensaje-decodificado {
+        color: #0056b3;
+        font-family: monospace;
+        font-size: 1.05em;
+    }
+
+    .tabla-instrucciones {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        margin-top: 15px;
+    }
+
+    .tabla-instrucciones thead {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .tabla-instrucciones th,
+    .tabla-instrucciones td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    .tabla-instrucciones tbody tr:nth-child(odd) {
+        background-color: #f8f9fa;
+    }
+
+    .tabla-instrucciones tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .acciones {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .boton {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .boton:hover {
+        background-color: #0056b3;
+    }
+
+    .mensaje {
+        padding: 15px;
+        border-radius: 4px;
+        margin: 15px 0;
+    }
+
+    .mensaje.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+</style>

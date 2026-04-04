@@ -77,4 +77,21 @@ public class MensajeLinkedList
 
         return arreglo;
     }
+
+    // Busca un mensaje por nombre y lo retorna; null si no existe.
+    public MensajeConfig? BuscarPorNombre(string nombre)
+    {
+        MensajeNode? actual = _primero;
+        while (actual != null)
+        {
+            if (string.Equals(actual.Valor.Nombre, nombre, StringComparison.OrdinalIgnoreCase))
+            {
+                return actual.Valor;
+            }
+
+            actual = actual.Siguiente;
+        }
+
+        return null;
+    }
 }

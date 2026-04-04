@@ -146,4 +146,123 @@ public class AppStateService
     {
         return _mensajes.ConvertirAArreglo();
     }
+
+    // Obtiene un sistema de drones por nombre.
+    public SistemaDrones? ObtenerSistemaPorNombre(string nombre)
+    {
+        return _sistemas.BuscarPorNombre(nombre);
+    }
+
+    // Obtiene un mensaje por nombre.
+    public MensajeConfig? ObtenerMensajePorNombre(string nombre)
+    {
+        return _mensajes.BuscarPorNombre(nombre);
+    }
+
+    // Decodifica un mensaje usando las instrucciones y los mapeos del sistema.
+    public string DecodificarMensaje(InstruccionMensaje[] instrucciones, SistemaDrones sistema)
+    {
+        if (instrucciones == null || instrucciones.Length == 0)
+        {
+            return string.Empty;
+        }
+
+        string resultado = string.Empty;
+
+        foreach (var instruccion in instrucciones)
+        {
+            string letra = BuscarletalEnSistema(sistema, instruccion.NombreDron, instruccion.Altura);
+            resultado += letra;
+        }
+
+        return resultado;
+    }
+
+    // Busca qué letra corresponde a un dron en una altura específica dentro de un sistema.
+    private string BuscarletalEnSistema(SistemaDrones sistema, string nombreDron, int altura)
+    {
+        if (sistema?.Mapas == null)
+        {
+            return " ";
+        }
+
+        MapaDronAltura[] mapas = ObtenerMapasDelSistema(sistema);
+        foreach (var mapa in mapas)
+        {
+            if (mapa.NombreDron == nombreDron && mapa.Altura == altura)
+            {
+                return mapa.Simbolo;
+            }
+        }
+
+        return " ";
+    }
+
+    // Obtiene todos los mapas de un sistema como arreglo.
+    private MapaDronAltura[] ObtenerMapasDelSistema(SistemaDrones sistema)
+    {
+        if (sistema?.Mapas == null)
+        {
+            return [];
+        }
+
+        return sistema.Mapas.ConvertirAArreglo();
+    }
+
+    // Genera las instrucciones optimizadas para un mensaje usando el OptimizadorMensaje.
+    public MensajeOptimizado GenerarInstruccionesOptimizadas(
+        MensajeConfig mensaje,
+        OptimizadorMensaje optimizador)
+    {
+        SistemaDrones? sistema = ObtenerSistemaPorNombre(mensaje.SistemaDrones);
+        if (sistema == null)
+        {
+            return new MensajeOptimizado
+            {
+                Nombre = mensaje.Nombre,
+                NombreSistemaDrones = mensaje.SistemaDrones,
+                MensajeRecibido = "Error: Sistema no encontrado"
+            };
+        }
+
+        // Preparar estados iniciales de los drones
+        Dictionary<string, EstadoDron> estadosDrones = new();
+        Dron[] drones = ObtenerDrones();
+        foreach (var dron in drones)
+        {
+            estadosDrones[dron.Nombre] = new EstadoDron(dron.Nombre);
+        }
+
+        // Optimizar
+        ResultadoOptimizacion resultado = optimizador.Optimizar(mensaje, sistema, estadosDrones);
+
+        // Convertir instrucciones a arreglo para decodificar
+        InstruccionMensaje[] instrucciones = ConvertirInstruccionesAArreglo(mensaje);
+
+        // Decodificar mensaje
+        string mensajeDecodificado = DecodificarMensaje(instrucciones, sistema);
+
+        // Construir resultado
+        MensajeOptimizado optimizado = new()
+        {
+            Nombre = mensaje.Nombre,
+            NombreSistemaDrones = mensaje.SistemaDrones,
+            TiempoOptimo = resultado.TiempoTotal,
+            MensajeRecibido = mensajeDecodificado,
+            InstruccionesPorTiempo = resultado.ObtenerInstruccionesPorTiempo()
+        };
+
+        return optimizado;
+    }
+
+    // Convierte las instrucciones de un mensaje en un arreglo.
+    private InstruccionMensaje[] ConvertirInstruccionesAArreglo(MensajeConfig mensaje)
+    {
+        if (mensaje?.Instrucciones == null)
+        {
+            return [];
+        }
+
+        return mensaje.Instrucciones.ConvertirAArreglo();
+    }
 }

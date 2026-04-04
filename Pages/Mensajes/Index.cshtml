@@ -16,7 +16,8 @@ else
     {
         <section class="bloque">
             <h3>@Model.Mensajes[i].Nombre</h3>
-            <p>Sistema: @Model.Mensajes[i].SistemaDrones</p>
+            <p><strong>Sistema:</strong> @Model.Mensajes[i].SistemaDrones</p>
+            
             <table>
                 <thead>
                     <tr>
@@ -37,6 +38,69 @@ else
                 }
                 </tbody>
             </table>
+
+            <div class="acciones-mensaje">
+                <a href="/MensajeDetalle?nombreMensaje=@Uri.EscapeDataString(Model.Mensajes[i].Nombre)" class="boton-detalles">
+                    Ver Instrucciones Optimizadas
+                </a>
+            </div>
         </section>
     }
 }
+
+<style>
+    .bloque {
+        background-color: #f9f9f9;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 4px solid #007bff;
+        border-radius: 4px;
+    }
+
+    .bloque h3 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .bloque table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        background-color: white;
+    }
+
+    .bloque table thead {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .bloque table th,
+    .bloque table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .bloque table tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .acciones-mensaje {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .boton-detalles {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .boton-detalles:hover {
+        background-color: #218838;
+    }
+</style>
