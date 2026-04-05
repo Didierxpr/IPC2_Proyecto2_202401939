@@ -31,6 +31,14 @@ else
             </p>
         </div>
 
+        @if (!string.IsNullOrEmpty(Model.SvgGrafica))
+        {
+            <div class="diagrama-contenedor" style="padding: 15px; background: #fafafa; border-radius: 8px; margin: 20px 0; overflow-x: auto;">
+                <h3>Diagrama de Instrucciones</h3>
+                @Html.Raw(Model.SvgGrafica)
+            </div>
+        }
+
         <div class="instrucciones-contenedor">
             <h3>Instrucciones por Tiempo</h3>
             

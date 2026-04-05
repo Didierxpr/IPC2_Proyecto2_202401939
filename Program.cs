@@ -10,6 +10,7 @@ builder.Services.AddSingleton<AppStateService>();
 builder.Services.AddScoped<XmlInputService>();
 builder.Services.AddScoped<OptimizadorMensaje>();
 builder.Services.AddScoped<XmlOutputService>();
+builder.Services.AddScoped<GeneradorGraphviz>();
 
 var app = builder.Build();
 

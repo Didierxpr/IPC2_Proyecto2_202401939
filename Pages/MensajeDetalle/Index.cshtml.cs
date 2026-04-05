@@ -4,37 +4,45 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPC2_Proyecto2_202401939.Pages.MensajeDetalle;
 
-/// <summary>
+
 /// Página que muestra las instrucciones detalladas de un mensaje optimizado.
 /// Permite visualizar el tiempo óptimo, el mensaje decodificado y la tabla de acciones.
-/// </summary>
+
 public class IndexModel : PageModel
 {
     private readonly AppStateService _appState;
     private readonly OptimizadorMensaje _optimizador;
+    private readonly GeneradorGraphviz _generador;
 
-    public IndexModel(AppStateService appState, OptimizadorMensaje optimizador)
+    public IndexModel(AppStateService appState, OptimizadorMensaje optimizador, GeneradorGraphviz generador)
     {
         _appState = appState;
         _optimizador = optimizador;
+        _generador = generador;
         MensajeActual = null;
         InstruccionesPorTiempo = [];
+        SvgGrafica = string.Empty;
     }
 
-    /// <summary>
+    
     /// El mensaje seleccionado para visualizar.
-    /// </summary>
+    
     public MensajeOptimizado? MensajeActual { get; private set; }
 
-    /// <summary>
+   
     /// Array de instrucciones ordenadas por tiempo.
-    /// </summary>
+   
     public InstruccionPorTiempo[] InstruccionesPorTiempo { get; private set; }
 
     /// <summary>
+    /// SVG de la gráfica de instrucciones para este mensaje.
+    /// </summary>
+    public string SvgGrafica { get; private set; }
+
+    
     /// Carga las instrucciones del mensaje seleccionado.
     /// El nombre del mensaje llega como parámetro de query: ?nombreMensaje=NombreMensaje
-    /// </summary>
+    
     public void OnGet(string nombreMensaje)
     {
         if (string.IsNullOrWhiteSpace(nombreMensaje))
@@ -56,13 +64,16 @@ public class IndexModel : PageModel
         if (MensajeActual != null && MensajeActual.InstruccionesPorTiempo != null)
         {
             InstruccionesPorTiempo = MensajeActual.InstruccionesPorTiempo;
+            
+            // Generar SVG para el diagrama
+            SvgGrafica = _generador.GenerarSVGInstrucciones(MensajeActual);
         }
     }
 
-    /// <summary>
+    
     /// Obtiene el nombre de todos los drones ordenado alfabéticamente.
     /// Útil para mostrar columnas en la tabla de instrucciones.
-    /// </summary>
+    
     public string[] ObtenerNombresDrones()
     {
         Dron[] drones = _appState.ObtenerDrones();
@@ -74,9 +85,9 @@ public class IndexModel : PageModel
         return nombres;
     }
 
-    /// <summary>
+    
     /// Obtiene la acción de un dron en un tiempo específico para mostrarla en la tabla.
-    /// </summary>
+    
     public string ObtenerAccion(InstruccionPorTiempo instruccion, string nombreDron)
     {
         if (instruccion == null)

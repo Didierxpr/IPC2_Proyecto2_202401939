@@ -16,13 +16,31 @@ else
     {
         <section class="bloque">
             <h3>@Model.Sistemas[i].Nombre</h3>
-            <p>Altura maxima: @Model.Sistemas[i].AlturaMaxima | Cantidad de drones: @Model.Sistemas[i].CantidadDrones</p>
-            <table>
+            <p>
+                <strong>Altura máxima:</strong> @Model.Sistemas[i].AlturaMaxima metros |
+                <strong>Cantidad de drones:</strong> @Model.Sistemas[i].CantidadDrones
+            </p>
+
+            <h4>Tabla Visual - Dron x Altura x Letra</h4>
+            <div class="tabla-visualizacion">
+                @Html.Raw(Model.GenerarTablaHTML(Model.Sistemas[i]))
+            </div>
+
+            @if (Model.SvgGraficasSistema.ContainsKey(Model.Sistemas[i].Nombre) && !string.IsNullOrEmpty(Model.SvgGraficasSistema[Model.Sistemas[i].Nombre]))
+            {
+                <h4>Diagrama Visual del Sistema</h4>
+                <div class="diagrama-contenedor" style="padding: 15px; background: #fafafa; border-radius: 8px; margin-bottom: 20px;">
+                    @Html.Raw(Model.SvgGraficasSistema[Model.Sistemas[i].Nombre])
+                </div>
+            }
+
+            <h4>Listado Detallado de Mapeos</h4>
+            <table class="tabla-mapeos">
                 <thead>
                     <tr>
                         <th>Dron</th>
                         <th>Altura</th>
-                        <th>Simbolo</th>
+                        <th>Símbolo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,8 +51,8 @@ else
                 {
                     <tr>
                         <td>@mapas[j].NombreDron</td>
-                        <td>@mapas[j].Altura</td>
-                        <td>@mapas[j].Simbolo</td>
+                        <td>@mapas[j].Altura m</td>
+                        <td><strong>@mapas[j].Simbolo</strong></td>
                     </tr>
                 }
                 </tbody>
@@ -42,3 +60,82 @@ else
         </section>
     }
 }
+
+<style>
+    .bloque {
+        background-color: #f9f9f9;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 4px solid #007bff;
+        border-radius: 4px;
+    }
+
+    .bloque h3 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .bloque h4 {
+        margin-top: 15px;
+        color: #555;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+    .tabla-visualizacion {
+        background-color: white;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+
+    .tabla-sistema {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        margin-top: 10px;
+    }
+
+    .tabla-sistema thead {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .tabla-sistema th,
+    .tabla-sistema td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    .tabla-sistema tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .tabla-mapeos {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        margin-top: 10px;
+    }
+
+    .tabla-mapeos thead {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .tabla-mapeos th,
+    .tabla-mapeos td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .tabla-mapeos tbody tr:nth-child(odd) {
+        background-color: #f8f9fa;
+    }
+
+    .tabla-mapeos tbody tr:hover {
+        background-color: #e9ecef;
+    }
+</style>

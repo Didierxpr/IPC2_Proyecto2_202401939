@@ -1,0 +1,223 @@
+@page
+@model IPC2_Proyecto2_202401939.Pages.Ayuda.IndexModel
+@{
+    ViewData["Title"] = "Ayuda e Información";
+}
+
+<h1>Ayuda e Información</h1>
+
+<div class="ayuda-contenedor">
+    <section class="seccion-info">
+        <h2>Información del Proyecto</h2>
+        
+        <div class="info-bloque">
+            <h3>Proyecto 2: Sistema de Control de Drones Encriptados</h3>
+            <p>
+                Este proyecto implementa un sistema de optimización para transmitir mensajes encriptados
+                mediante drones. El sistema calcula el tiempo óptimo necesario para que los drones ejecuten
+                las instrucciones requeridas para emitir mensajes de forma segura.
+            </p>
+        </div>
+
+        <div class="info-bloque">
+            <h3>Información del Estudiante</h3>
+            <table class="tabla-info">
+                <tr>
+                    <td><strong>Nombre:</strong></td>
+                    <td>@Model.NombreEstudiante</td>
+                </tr>
+                <tr>
+                    <td><strong>Carnet:</strong></td>
+                    <td>@Model.Carnet</td>
+                </tr>
+                <tr>
+                    <td><strong>Curso:</strong></td>
+                    <td>@Model.Curso</td>
+                </tr>
+                <tr>
+                    <td><strong>Sección:</strong></td>
+                    <td>@Model.Seccion</td>
+                </tr>
+                <tr>
+                    <td><strong>Ciclo:</strong></td>
+                    <td>@Model.Ciclo</td>
+                </tr>
+                <tr>
+                    <td><strong>Instructor:</strong></td>
+                    <td>@Model.Instructor</td>
+                </tr>
+                <tr>
+                    <td><strong>Universidad:</strong></td>
+                    <td>@Model.Universidad</td>
+                </tr>
+                <tr>
+                    <td><strong>Facultad:</strong></td>
+                    <td>@Model.Facultad</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info-bloque">
+            <h3>Características del Sistema</h3>
+            <ul>
+                <li>Gestión de drones (crear, visualizar)</li>
+                <li>Creación de sistemas de drones con mapeos letra-altura</li>
+                <li>Carga incremental de configuraciones mediante XML</li>
+                <li>Cálculo automático de tiempo óptimo para transmisión</li>
+                <li>Decodificación de mensajes en base a mapeos</li>
+                <li>Generación de instrucciones detalladas por segundo</li>
+                <li>Exportación de resultados en XML</li>
+                <li>Visualizaciones gráficas (tablas y diagramas)</li>
+            </ul>
+        </div>
+
+        <div class="info-bloque">
+            <h3>Cómo Usar</h3>
+            <ol>
+                <li>
+                    <strong>Inicializar:</strong> Ve a la página de Inicio y haz clic en "Inicializar sistema"
+                    para limpiar todos los datos cargados.
+                </li>
+                <li>
+                    <strong>Cargar XML:</strong> Ve a "Cargar XML" y sube un archivo con la configuración de
+                    drones, sistemas y mensajes.
+                </li>
+                <li>
+                    <strong>Ver Drones:</strong> En la sección "Drones" puedes ver todos los drones cargados
+                    ordenados alfabéticamente.
+                </li>
+                <li>
+                    <strong>Ver Sistemas:</strong> En "Sistemas" visualizas los sistemas de drones disponibles
+                    con sus mapeos.
+                </li>
+                <li>
+                    <strong>Ver Mensajes:</strong> En "Mensajes" ves los mensajes cargados. Selecciona uno para
+                    ver sus instrucciones optimizadas.
+                </li>
+                <li>
+                    <strong>Instrucciones:</strong> Haz clic en "Ver Instrucciones Optimizadas" para ver el
+                    tiempo óptimo, el mensaje decodificado y la tabla detallada de acciones.
+                </li>
+            </ol>
+        </div>
+
+        <div class="info-bloque">
+            <h3>Restricciones del Sistema</h3>
+            <ul>
+                <li>Máximo 200 drones</li>
+                <li>Altura máxima: 100 metros</li>
+                <li>Un dron tarda 1 segundo en subir o bajar 1 metro</li>
+                <li>Un dron tarda 1 segundo en encender o apagar la luz</li>
+                <li>Solo 1 dron puede emitir luz en un segundo dado</li>
+                <li>Los drones pueden moverse (subir/bajar) simultáneamente</li>
+            </ul>
+        </div>
+
+        <div class="info-bloque">
+            <h3>Formato XML</h3>
+            <p>
+                Los archivos de entrada deben seguir la estructura especificada. Consulta la
+                <a href="https://github.com/Didierxpr/IPC2_Proyecto2_202401939" target="_blank">documentación del proyecto</a> para ver ejemplos
+                de archivos XML válidos.
+            </p>
+        </div>
+
+        <div class="info-bloque">
+            <h3>Soporte Técnico</h3>
+            <p>
+                Para consultas o reportar problemas, contacta al instructor del curso o dirigete a los
+                foros académicos de la Universidad de San Carlos.
+            </p>
+        </div>
+    </section>
+
+    <div class="acciones-ayuda">
+        <a href="/" class="boton-volver">Volver al Inicio</a>
+    </div>
+</div>
+
+<style>
+    .ayuda-contenedor {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .seccion-info {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    .info-bloque {
+        background-color: white;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid #007bff;
+        border-radius: 4px;
+    }
+
+    .info-bloque h3 {
+        color: #333;
+        margin-top: 0;
+    }
+
+    .info-bloque ul,
+    .info-bloque ol {
+        margin: 10px 0;
+        padding-left: 20px;
+    }
+
+    .info-bloque li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+
+    .tabla-info {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .tabla-info tr {
+        background-color: #f8f9fa;
+    }
+
+    .tabla-info td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .tabla-info tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    .acciones-ayuda {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .boton-volver {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .boton-volver:hover {
+        background-color: #0056b3;
+    }
+
+    h1 {
+        color: #333;
+        border-bottom: 3px solid #007bff;
+        padding-bottom: 10px;
+    }
+
+    h2 {
+        color: #555;
+    }
+</style>

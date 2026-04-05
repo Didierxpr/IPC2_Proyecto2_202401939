@@ -1,0 +1,207 @@
+@page
+@model IPC2_Proyecto2_202401939.Pages.DescargarSalida.IndexModel
+@{
+    ViewData["Title"] = "Descargar Salida XML";
+}
+
+<h1>Descargar Archivo de Salida</h1>
+
+<div class="descarga-contenedor">
+    <section class="info-seccion">
+        <h2>Generar y Descargar XML de Salida</h2>
+        
+        <p>
+            Esta página permite descargar un archivo XML con los resultados de la optimización
+            de todos los mensajes cargados en el sistema. El archivo contiene:
+        </p>
+        <ul>
+            <li>Tiempo óptimo para cada mensaje</li>
+            <li>Mensaje decodificado</li>
+            <li>Instrucciones detalladas por segundo</li>
+            <li>Acciones de cada dron en cada tiempo</li>
+        </ul>
+
+        <div class="estado-mensajes">
+            @if (Model.Mensajes.Length == 0)
+            {
+                <p class="advertencia">No hay mensajes cargados. Por favor, carga un archivo XML primero.</p>
+            }
+            else
+            {
+                <p class="exito">Hay <strong>@Model.Mensajes.Length</strong> mensaje(s) cargado(s).</p>
+                
+                <h3>Mensajes a procesar:</h3>
+                <ul>
+                    @for (int i = 0; i < Model.Mensajes.Length; i++)
+                    {
+                        <li>@Model.Mensajes[i].Nombre - Sistema: @Model.Mensajes[i].SistemaDrones</li>
+                    }
+                </ul>
+            }
+        </div>
+
+        @if (Model.Mensajes.Length > 0)
+        {
+            <div class="acciones-descarga">
+                <a href="/DescargarSalida?handler=Descargar" class="boton-descargar">
+                    Descargar XML Salida
+                </a>
+            </div>
+        }
+
+        <div class="info-adicional">
+            <h3>Formato del Archivo</h3>
+            <p>
+                El archivo XML generado sigue la estructura:
+            </p>
+            <pre>
+&lt;?xml version="1.0"?&gt;
+&lt;respuesta&gt;
+  &lt;listaMensajes&gt;
+    &lt;mensaje nombre="NombreMensaje"&gt;
+      &lt;sistemaDrones&gt;NombreSistema&lt;/sistemaDrones&gt;
+      &lt;tiempoOptimo&gt;N&lt;/tiempoOptimo&gt;
+      &lt;mensajeRecibido&gt;Texto&lt;/mensajeRecibido&gt;
+      &lt;instrucciones&gt;
+        &lt;tiempo valor="1"&gt;
+          &lt;acciones&gt;
+            &lt;dron nombre="Dron1"&gt;Acción&lt;/dron&gt;
+          &lt;/acciones&gt;
+        &lt;/tiempo&gt;
+      &lt;/instrucciones&gt;
+    &lt;/mensaje&gt;
+  &lt;/listaMensajes&gt;
+&lt;/respuesta&gt;
+            </pre>
+        </div>
+    </section>
+
+    <div class="acciones-volver">
+        <a href="/Mensajes" class="boton-volver">Volver a Mensajes</a>
+    </div>
+</div>
+
+<style>
+    .descarga-contenedor {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .info-seccion {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .info-seccion h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+    }
+
+    .info-seccion h3 {
+        color: #555;
+        margin-top: 15px;
+    }
+
+    .info-seccion ul {
+        margin: 10px 0;
+        padding-left: 20px;
+    }
+
+    .info-seccion li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+
+    .estado-mensajes {
+        background-color: white;
+        padding: 15px;
+        border-radius: 4px;
+        margin: 15px 0;
+        border-left: 4px solid #007bff;
+    }
+
+    .estado-mensajes.advertencia {
+        border-left: 4px solid #dc3545;
+    }
+
+    .advertencia {
+        color: #721c24;
+        background-color: #f8d7da;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 10px 0;
+    }
+
+    .exito {
+        color: #155724;
+        background-color: #d4edda;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 10px 0;
+    }
+
+    .acciones-descarga {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .boton-descargar {
+        display: inline-block;
+        padding: 15px 40px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 1.1em;
+        transition: background-color 0.3s;
+    }
+
+    .boton-descargar:hover {
+        background-color: #218838;
+    }
+
+    .info-adicional {
+        background-color: white;
+        padding: 15px;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+
+    .info-adicional pre {
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-size: 0.9em;
+    }
+
+    .acciones-volver {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .boton-volver {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .boton-volver:hover {
+        background-color: #0056b3;
+    }
+
+    h1 {
+        color: #333;
+        border-bottom: 3px solid #28a745;
+        padding-bottom: 10px;
+    }
+</style>
